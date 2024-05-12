@@ -1,0 +1,314 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "AndMI API/Open API System",
+        "description": "Andijon Mashinasozlik Instituti Ochiq API tizimi",
+        "contact": {
+            "email": "andmiatmdev@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/documentation": {},
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Avtorizatsiya"
+                ],
+                "summary": "Ro'yhatdan o'tish",
+                "operationId": "26ac06b496123d055b26a788165924bb",
+                "requestBody": {
+                    "description": "Ro'yhatdan o'tish so'rovi",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "FIO",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "description": "Foydalanuvchi Emaili",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Foydalanuvchi paroli",
+                                        "type": "string",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Foydalanuvchi qo'shildi"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Avtorizatsiya"
+                ],
+                "summary": "Saytga kirish",
+                "operationId": "3e5fe318fe58355689b1608ed9f5430b",
+                "requestBody": {
+                    "description": "Kirish so'rovi",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Foydalanuvchi Emaili",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Foydalanuvchi paroli",
+                                        "type": "string",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kirish amalga oshirildi"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "get": {
+                "tags": [
+                    "Avtorizatsiya"
+                ],
+                "summary": "Saytdan chiqish",
+                "operationId": "13b9babde691ed66139e55f82d56898b",
+                "requestBody": {
+                    "description": "Chiqish so'rovi",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "description": "Foydalanuvchi tokeni",
+                                        "type": "string",
+                                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5MCwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Chiqish amalga oshirildi"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "post": {
+                "tags": [
+                    "Turkumlar"
+                ],
+                "summary": "Turkum ochish",
+                "operationId": "0c5854a86978e3decf9e294f48fb428d",
+                "requestBody": {
+                    "description": "Turkum ochish",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "minLength": 3,
+                                        "example": "Turkum nomi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Turkum muvaffaqiyatli ochildi"
+                    },
+                    "401": {
+                        "description": "Avtorizatsiyadan o'tilmagan"
+                    },
+                    "422": {
+                        "description": "Noto'g'ri ma'lumotlar"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Turkumlar"
+                ],
+                "summary": "Turkum haqida ma'lumot olish",
+                "operationId": "a342f7f4b367c855f7f16728e26d7362",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Turkum IDsi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turkum haqida ma'lumot"
+                    },
+                    "401": {
+                        "description": "Avtorizatsiyadan o'tilmagan"
+                    },
+                    "404": {
+                        "description": "Bunday turkum topilmadi"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Turkumlar"
+                ],
+                "summary": "Turkumni yangilash",
+                "operationId": "e64b502cb0dff8bf05a734d61995618c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Turkum IDsi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Turkumnin yangilash uchun so'rov",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Turkum yangi nomi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Turkum muvaffaqiyatli yangilandi"
+                    },
+                    "401": {
+                        "description": "Avtorizatsiyadan o'tilmagan"
+                    },
+                    "404": {
+                        "description": "Bunday turkum topilmadi"
+                    },
+                    "422": {
+                        "description": "Noto'g'ri ma'lumotlar"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Turkumlar"
+                ],
+                "summary": "Turkumni o'chirish",
+                "operationId": "25fc3ffa89ed73bdec0d7b6070ec094a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Turkum IDsi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Turkum muvaffaqiyatli o'chirildi"
+                    },
+                    "401": {
+                        "description": "Avtorizatsiyadan o'tilmagan"
+                    },
+                    "404": {
+                        "description": "Bunday turkum topilmadi"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Аутентификация с использованием токена Bearer",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

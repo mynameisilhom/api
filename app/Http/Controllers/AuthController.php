@@ -12,11 +12,9 @@ class AuthController extends Controller
 {
     public function register(StoreUserRequest $request)
     {
-//        return 'Registered';
         return User::query()->create($request->all());
 
     }
-
 
 
     public function login(LoginUserRequest $request)
@@ -39,8 +37,6 @@ class AuthController extends Controller
 //            ]
         ]);
     }
-
-
 
     public function logout()
     {
