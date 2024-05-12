@@ -22,7 +22,3 @@ Route::prefix('v1')->middleware(['auth:sanctum','throttle:api'])->group(function
     Route::apiResource('posts', PostController::class);
     Route::get('logout', [AuthController::class,'logout']);
 });
-
-
-//Route::get('v1/documentation', [SwaggerController::class, 'api'])->name('l5-swagger.api');
-
