@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StorePostRequest;
+use App\Http\Requests\UpdateRequests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -15,7 +15,6 @@ class PostController extends Controller
     public function index()
     {
         return PostResource::collection(Post::with('category')->paginate(5));
-//        return Post::all();
     }
 
     /**

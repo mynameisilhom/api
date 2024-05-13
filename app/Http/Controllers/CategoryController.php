@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreCategoryRequest;
+use App\Http\Requests\UpdateRequests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -14,12 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-//        return response()->json([
-//            'message'=>'Categories List'
-//        ]);
-
         return CategoryResource::collection(Category::all());
-//        return response(json_encode(Category::all()), 200);
     }
 
     /**
@@ -54,8 +49,5 @@ class CategoryController extends Controller
     {
         $category->delete();
         return response()->json(null, 204);
-//        return response()->json([
-//            'message' => 'Category deleted successfully'
-//        ]);
     }
 }

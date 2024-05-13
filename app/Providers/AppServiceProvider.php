@@ -6,6 +6,7 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use L5Swagger\L5SwaggerServiceProvider;
 
@@ -35,5 +36,10 @@ class AppServiceProvider extends ServiceProvider
                 return response()->json(['Juda koʻp soʻrovlar'],429);
             });
         });
+
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+            config(['app.debug' => false]);
+        }
     }
 }

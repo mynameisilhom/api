@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\UpdateRequests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostRequest extends FormRequest
+class UpdatePermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,7 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string|min:3|max:100",
-            "content" => "required|min:3|max:100",
-            "category_id" => "required|integer|exists:categories,id",
+            //
         ];
     }
 }
