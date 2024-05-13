@@ -18,7 +18,7 @@ use App\Http\Controllers\Controller;
  * )
  * @OA\SecurityScheme(
  *     type="http",
- *     description="Аутентификация с использованием токена Bearer",
+ *     description="Bearer token orqali autentifikatsiyadan o'tish",
  *     name="Authorization",
  *     in="header",
  *     scheme="bearer",
