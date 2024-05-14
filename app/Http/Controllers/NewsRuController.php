@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreNews_RuRequest;
+use App\Http\Requests\UpdateRequests\UpdateNews_RuRequest;
+use App\Http\Resources\News_RuResource;
 use App\Models\News_Ru;
-use Illuminate\Http\Request;
 
 class NewsRuController extends Controller
 {
@@ -12,23 +14,16 @@ class NewsRuController extends Controller
      */
     public function index()
     {
-        //
+        return News_RuResource::collection(News_Ru::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreNews_RuRequest $request)
     {
-        //
+        return new News_RuResource(News_Ru::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class NewsRuController extends Controller
      */
     public function show(News_Ru $news_Ru)
     {
-        //
+        return new News_RuResource($news_Ru);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(News_Ru $news_Ru)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News_Ru $news_Ru)
+    public function update(UpdateNews_RuRequest $request, News_Ru $news_Ru)
     {
-        //
+        $news_Ru->update($request->all());
+        return new News_RuResource($news_Ru);
     }
 
     /**
@@ -60,6 +49,7 @@ class NewsRuController extends Controller
      */
     public function destroy(News_Ru $news_Ru)
     {
-        //
+        $news_Ru->delete();
+        return response()->json(null, 204);
     }
 }

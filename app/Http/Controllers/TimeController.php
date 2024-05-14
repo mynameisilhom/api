@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreTimeRequest;
+use App\Http\Requests\UpdateRequests\UpdateTimeRequest;
+use App\Http\Resources\TimeResource;
 use App\Models\Time;
-use Illuminate\Http\Request;
 
 class TimeController extends Controller
 {
@@ -12,23 +14,16 @@ class TimeController extends Controller
      */
     public function index()
     {
-        //
+        return TimeResource::collection(Time::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTimeRequest $request)
     {
-        //
+        return new TimeResource(Time::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class TimeController extends Controller
      */
     public function show(Time $time)
     {
-        //
+        return new TimeResource($time);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Time $time)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Time $time)
+    public function update(UpdateTimeRequest $request, Time $time)
     {
-        //
+        $time->update($request->all());
+        return new TimeResource($time);
     }
 
     /**
@@ -60,6 +49,7 @@ class TimeController extends Controller
      */
     public function destroy(Time $time)
     {
-        //
+        $time->delete();
+        return response()->json(null, 204);
     }
 }

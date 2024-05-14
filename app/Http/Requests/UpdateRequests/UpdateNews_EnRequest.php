@@ -23,7 +23,14 @@ class UpdateNews_EnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:news_ens,slug', // Уникальный slug в таблице news_ens
+            'content' => 'required|string',
+            'likes' => 'required|integer|min:0',
+            'file_id' => 'nullable|exists:files,id',
+            'user_id' => 'nullable|exists:users,id',
+            'views' => 'integer|min:0',
+            'published' => 'boolean',
         ];
     }
 }

@@ -12,8 +12,16 @@ class Permission_RoleResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'role_id' => $this->role_id,
+            'permission_id' => $this->permission_id,
+            'active' => $this->active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            // Дополнительные поля, если есть
+        ];
     }
 }

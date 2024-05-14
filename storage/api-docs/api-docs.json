@@ -303,7 +303,7 @@
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
-                "description": "Аутентификация с использованием токена Bearer",
+                "description": "Bearer token orqali autentifikatsiyadan o'tish",
                 "name": "Authorization",
                 "in": "header",
                 "bearerFormat": "JWT",

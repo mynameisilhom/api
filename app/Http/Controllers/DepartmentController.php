@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateRequests\UpdateDepartmentRequest;
+use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
-use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
@@ -12,23 +14,16 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return DepartmentResource::collection(Department::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDepartmentRequest $request)
     {
-        //
+        return new DepartmentResource(Department::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        return new DepartmentResource($department);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Department $department)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Department $department)
+    public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        //
+        $department->update($request->all());
+        return new DepartmentResource($department);
     }
 
     /**
@@ -60,6 +49,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        return response()->json(null, 204);
     }
 }

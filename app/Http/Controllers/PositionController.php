@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StorePositionRequest;
+use App\Http\Requests\UpdateRequests\UpdatePositionRequest;
+use App\Http\Resources\PositionResource;
 use App\Models\Position;
-use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
@@ -12,23 +14,16 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        return PositionResource::collection(Position::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePositionRequest $request)
     {
-        //
+        return new PositionResource(Position::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class PositionController extends Controller
      */
     public function show(Position $position)
     {
-        //
+        return new PositionResource($position);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Position $position)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Position $position)
+    public function update(UpdatePositionRequest $request, Position $position)
     {
-        //
+        $position->update($request->all());
+        return new PositionResource($position);
     }
 
     /**
@@ -60,6 +49,7 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        $position->delete();
+        return response()->json(null, 204);
     }
 }

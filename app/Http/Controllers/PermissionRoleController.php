@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StorePermission_RoleRequest;
+use App\Http\Requests\UpdateRequests\UpdatePermission_RoleRequest;
+use App\Http\Resources\Permission_RoleResource;
 use App\Models\Permission_Role;
-use Illuminate\Http\Request;
 
 class PermissionRoleController extends Controller
 {
@@ -12,23 +14,16 @@ class PermissionRoleController extends Controller
      */
     public function index()
     {
-        //
+        return Permission_RoleResource::collection(Permission_Role::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePermission_RoleRequest $request)
     {
-        //
+        return new Permission_RoleResource(Permission_Role::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class PermissionRoleController extends Controller
      */
     public function show(Permission_Role $permission_Role)
     {
-        //
+        return new Permission_RoleResource($permission_Role);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission_Role $permission_Role)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Permission_Role $permission_Role)
+    public function update(UpdatePermission_RoleRequest $request, Permission_Role $permission_Role)
     {
-        //
+        $permission_Role->update($request->all());
+        return new Permission_RoleResource($permission_Role);
     }
 
     /**
@@ -60,6 +49,7 @@ class PermissionRoleController extends Controller
      */
     public function destroy(Permission_Role $permission_Role)
     {
-        //
+        $permission_Role->delete();
+        return response()->json(null, 204);
     }
 }

@@ -23,7 +23,9 @@ class UpdateSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'department_id' => 'nullable|exists:departments,id',
+            'active' => 'boolean',
         ];
     }
 }

@@ -12,8 +12,22 @@ class LogResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'from' => $this->from,
+            'to' => $this->to,
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'user_id' => $this->user_id,
+            'url' => $this->url,
+            'ip_address' => $this->ip_address,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            // Дополнительные поля, если есть
+        ];
     }
 }

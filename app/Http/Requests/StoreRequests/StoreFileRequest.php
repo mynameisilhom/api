@@ -23,7 +23,18 @@ class StoreFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:files,slug', // Уникальный slug в таблице files
+            'author_id' => 'nullable|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
+            'types_id' => 'nullable|exists:types,id',
+            'format_id' => 'nullable|exists:formats,id',
+            'group_of' => 'required|integer',
+            'part_of' => 'required|integer',
+            'used_times' => 'required|integer|min:0',
+            'zip' => 'required|string', // Предполагается, что это имя файла
+            'active' => 'boolean',
         ];
     }
+
 }

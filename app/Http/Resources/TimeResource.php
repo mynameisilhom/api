@@ -12,8 +12,24 @@ class TimeResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'start' => $this->start,
+            'end' => $this->end,
+            'monday' => $this->monday,
+            'tuesday' => $this->tuesday,
+            'wednesday' => $this->wednesday,
+            'thursday' => $this->thursday,
+            'friday' => $this->friday,
+            'saturday' => $this->saturday,
+            'sunday' => $this->sunday,
+            'active' => $this->active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            // Дополнительные поля, если есть
+        ];
     }
 }

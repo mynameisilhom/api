@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreLanguageRequest;
+use App\Http\Requests\UpdateRequests\UpdateLanguageRequest;
+use App\Http\Resources\LanguageResource;
 use App\Models\Language;
-use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
@@ -12,23 +14,16 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        //
+        return LanguageResource::collection(Language::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLanguageRequest $request)
     {
-        //
+        return new LanguageResource(Language::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class LanguageController extends Controller
      */
     public function show(Language $language)
     {
-        //
+        return new LanguageResource($language);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Language $language)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Language $language)
+    public function update(UpdateLanguageRequest $request, Language $language)
     {
-        //
+        $language->update($request->all());
+        return new LanguageResource($language);
     }
 
     /**
@@ -60,6 +49,7 @@ class LanguageController extends Controller
      */
     public function destroy(Language $language)
     {
-        //
+        $language->delete();
+        return response()->json(null, 204);
     }
 }

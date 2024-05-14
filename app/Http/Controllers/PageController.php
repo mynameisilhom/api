@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StorePageRequest;
+use App\Http\Requests\UpdateRequests\UpdatePageRequest;
+use App\Http\Resources\PageResource;
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -12,23 +14,16 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        return PageResource::collection(Page::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePageRequest $request)
     {
-        //
+        return new PageResource(Page::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        return new PageResource($page);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Page $page)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page)
     {
-        //
+        $page->update($request->all());
+        return new PageResource($page);
     }
 
     /**
@@ -60,6 +49,7 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        $page->delete();
+        return response()->json(null, 204);
     }
 }

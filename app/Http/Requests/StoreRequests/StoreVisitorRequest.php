@@ -23,7 +23,17 @@ class StoreVisitorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'site' => 'required|integer|min:0',
+            'uz' => 'required|integer|min:0',
+            'ru' => 'required|integer|min:0',
+            'en' => 'required|integer|min:0',
+            'auto' => 'required|integer|min:0',
+            'machine' => 'required|integer|min:0',
+            'electrics' => 'required|integer|min:0',
+            'logistics' => 'required|integer|min:0',
+            'intellectual' => 'required|integer|min:0',
+            'economics' => 'required|integer|min:0',
         ];
     }
+
 }

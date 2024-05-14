@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreVisitorRequest;
+use App\Http\Requests\UpdateRequests\UpdateVisitorRequest;
+use App\Http\Resources\VisitorResource;
 use App\Models\Visitor;
-use Illuminate\Http\Request;
 
 class VisitorController extends Controller
 {
@@ -12,23 +14,16 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        //
+        return VisitorResource::collection(Visitor::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreVisitorRequest $request)
     {
-        //
+        return new VisitorResource(Visitor::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class VisitorController extends Controller
      */
     public function show(Visitor $visitor)
     {
-        //
+        return new VisitorResource($visitor);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Visitor $visitor)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Visitor $visitor)
+    public function update(UpdateVisitorRequest $request, Visitor $visitor)
     {
-        //
+        $visitor->update($request->all());
+        return new VisitorResource($visitor);
     }
 
     /**
@@ -60,6 +49,7 @@ class VisitorController extends Controller
      */
     public function destroy(Visitor $visitor)
     {
-        //
+        $visitor->delete();
+        return response()->json(null, 204);
     }
 }

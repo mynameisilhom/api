@@ -23,7 +23,9 @@ class UpdateTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'department_id' => 'nullable|exists:departments,id',
+            'section_id' => 'nullable|exists:sections,id',
         ];
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreFileRequest;
+use App\Http\Requests\UpdateRequests\UpdateFileRequest;
+use App\Http\Resources\FileResource;
 use App\Models\File;
-use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
@@ -12,23 +14,16 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return FileResource::collection(File::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFileRequest $request)
     {
-        //
+        return new FileResource(File::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        //
+        return new FileResource($file);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(File $file)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, File $file)
+    public function update(UpdateFileRequest $request, File $file)
     {
-        //
+        $file->update($request->all());
+        return new FileResource($file);
     }
 
     /**
@@ -60,6 +49,7 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        $file->delete();
+        return response()->json(null, 204);
     }
 }

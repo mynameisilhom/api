@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreNews_UzRequest;
+use App\Http\Requests\UpdateRequests\UpdateNews_UzRequest;
+use App\Http\Resources\News_UzResource;
 use App\Models\News_Uz;
-use Illuminate\Http\Request;
 
 class NewsUzController extends Controller
 {
@@ -12,23 +14,16 @@ class NewsUzController extends Controller
      */
     public function index()
     {
-        //
+        return News_UzResource::collection(News_Uz::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreNews_UzRequest $request)
     {
-        //
+        return new News_UzResource(News_Uz::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class NewsUzController extends Controller
      */
     public function show(News_Uz $news_Uz)
     {
-        //
+        return new News_UzResource($news_Uz);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(News_Uz $news_Uz)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News_Uz $news_Uz)
+    public function update(UpdateNews_UzRequest $request, News_Uz $news_Uz)
     {
-        //
+        $news_Uz->update($request->all());
+        return new News_UzResource($news_Uz);
     }
 
     /**
@@ -60,6 +49,7 @@ class NewsUzController extends Controller
      */
     public function destroy(News_Uz $news_Uz)
     {
-        //
+        $news_Uz->delete();
+        return response()->json(null, 204);
     }
 }

@@ -12,8 +12,18 @@ class PositionResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'time_id' => $this->time_id,
+            'department_id' => $this->department_id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'active' => $this->active,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            // Дополнительные поля, если есть
+        ];
     }
 }

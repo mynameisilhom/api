@@ -23,7 +23,9 @@ class UpdatePermission_RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role_id' => 'nullable|exists:roles,id',
+            'permission_id' => 'nullable|exists:permissions,id',
+            'active' => 'boolean',
         ];
     }
 }

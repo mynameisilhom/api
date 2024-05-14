@@ -23,7 +23,15 @@ class UpdateLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'from' => 'required|string|max:255',
+            'to' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'month' => 'required|integer',
+            'day' => 'required|integer',
+            'user_id' => 'nullable|exists:users,id',
+            'url' => 'required|string|max:255',
+            'ip_address' => 'nullable|ip', // Проверка на корректный IP-адрес
         ];
     }
 }

@@ -23,7 +23,13 @@ class UpdatePositionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'time_id' => 'nullable|exists:times,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'section_id' => 'nullable|exists:sections,id',
+            'role_id' => 'nullable|exists:roles,id',
+            'phone' => 'nullable|string|max:20', // Уточните максимальную длину
+            'active' => 'boolean',
         ];
     }
 }

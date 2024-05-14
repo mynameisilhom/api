@@ -23,7 +23,11 @@ class StorePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'nullable|string|max:255',
+            'route' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'active' => 'boolean',
         ];
     }
+
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreLogRequest;
+use App\Http\Requests\UpdateRequests\UpdateLogRequest;
+use App\Http\Resources\LogResource;
 use App\Models\Log;
-use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
@@ -12,23 +14,16 @@ class LogController extends Controller
      */
     public function index()
     {
-        //
+        return LogResource::collection(Log::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLogRequest $request)
     {
-        //
+        return new LogResource(Log::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class LogController extends Controller
      */
     public function show(Log $log)
     {
-        //
+        return new LogResource($log);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Log $log)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Log $log)
+    public function update(UpdateLogRequest $request, Log $log)
     {
-        //
+        $log->update($request->all());
+        return new LogResource($log);
     }
 
     /**
@@ -60,6 +49,7 @@ class LogController extends Controller
      */
     public function destroy(Log $log)
     {
-        //
+        $log->delete();
+        return response()->json(null, 204);
     }
 }

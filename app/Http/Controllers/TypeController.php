@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreTypeRequest;
+use App\Http\Requests\UpdateRequests\UpdateTypeRequest;
+use App\Http\Resources\TypeResource;
 use App\Models\Type;
-use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -12,23 +14,16 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        return TypeResource::collection(Type::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        //
+        return new TypeResource(Type::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
+        return new TypeResource($type);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Type $type)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Type $type)
+    public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $type->update($request->all());
+        return new TypeResource($type);
     }
 
     /**
@@ -60,6 +49,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return response()->json(null, 204);
     }
 }

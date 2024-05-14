@@ -23,7 +23,16 @@ class StoreDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'name' => 'required|string|max:255',
+            'info' => 'nullable|string',
+            'phone' => 'required|string|max:20',
+            'code' => 'required|string|size:10|unique:departments',
+            'structure_type_name' => 'nullable|string|max:255',
+            'structure_type_code' => 'nullable|string|max:255',
+            'locality_type_name' => 'nullable|string|max:255',
+            'locality_type_code' => 'nullable|string|max:255',
+            'active' => 'boolean',
         ];
     }
+
 }

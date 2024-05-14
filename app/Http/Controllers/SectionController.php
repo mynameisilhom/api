@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreSectionRequest;
+use App\Http\Requests\UpdateRequests\UpdateSectionRequest;
+use App\Http\Resources\SectionResource;
 use App\Models\Section;
-use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
@@ -12,23 +14,16 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        return SectionResource::collection(Section::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSectionRequest $request)
     {
-        //
+        return new SectionResource(Section::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        //
+        return new SectionResource($section);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Section $section)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(UpdateSectionRequest $request, Section $section)
     {
-        //
+        $section->update($request->all());
+        return new SectionResource($section);
     }
 
     /**
@@ -60,6 +49,7 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        return response()->json(null, 204);
     }
 }

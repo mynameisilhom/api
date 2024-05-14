@@ -12,8 +12,23 @@ class VisitorResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'site' => $this->site,
+            'uz' => $this->uz,
+            'ru' => $this->ru,
+            'en' => $this->en,
+            'auto' => $this->auto,
+            'machine' => $this->machine,
+            'electrics' => $this->electrics,
+            'logistics' => $this->logistics,
+            'intellectual' => $this->intellectual,
+            'economics' => $this->economics,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            // Дополнительные поля, если есть
+        ];
     }
 }

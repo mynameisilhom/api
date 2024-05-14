@@ -23,7 +23,17 @@ class UpdateTimeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'start' => 'required|date_format:H:i', // Уточните формат времени, если необходимо
+            'end' => 'required|date_format:H:i|after:start', // Уточните формат времени и добавьте условие, что "end" должно быть после "start"
+            'monday' => 'boolean',
+            'tuesday' => 'boolean',
+            'wednesday' => 'boolean',
+            'thursday' => 'boolean',
+            'friday' => 'boolean',
+            'saturday' => 'boolean',
+            'sunday' => 'boolean',
+            'active' => 'boolean',
         ];
     }
 }

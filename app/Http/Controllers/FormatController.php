@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequests\StoreFormatRequest;
+use App\Http\Requests\UpdateRequests\UpdateFormatRequest;
+use App\Http\Resources\FormatResource;
 use App\Models\Format;
-use Illuminate\Http\Request;
 
 class FormatController extends Controller
 {
@@ -12,23 +14,16 @@ class FormatController extends Controller
      */
     public function index()
     {
-        //
+        return FormatResource::collection(Format::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFormatRequest $request)
     {
-        //
+        return new FormatResource(Format::query()->create($request->all()));
     }
 
     /**
@@ -36,23 +31,17 @@ class FormatController extends Controller
      */
     public function show(Format $format)
     {
-        //
+        return new FormatResource($format);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Format $format)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Format $format)
+    public function update(UpdateFormatRequest $request, Format $format)
     {
-        //
+        $format->update($request->all());
+        return new FormatResource($format);
     }
 
     /**
@@ -60,6 +49,7 @@ class FormatController extends Controller
      */
     public function destroy(Format $format)
     {
-        //
+        $format->delete();
+        return response()->json(null, 204);
     }
 }
