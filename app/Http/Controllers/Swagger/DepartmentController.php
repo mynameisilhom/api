@@ -6,6 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 /**
+ * @OA\Get(
+ *     path="/api/v1/departments",
+ *     summary="Получение списка всех отделов",
+ *     tags={"Отделы"},
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Response(response=200, description="Список отделов",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="name", type="string", example="Отдел продаж"),
+ *                 @OA\Property(property="info", type="string", example="Информация об отделе"),
+ *                 @OA\Property(property="phone", type="string", example="123456789"),
+ *                 @OA\Property(property="code", type="string", maxLength=10, example="DEPT1234"),
+ *                 @OA\Property(property="structure_type_name", type="string", example="Название типа структуры"),
+ *                 @OA\Property(property="structure_type_code", type="string", example="STRUCT123"),
+ *                 @OA\Property(property="locality_type_name", type="string", example="Название типа местности"),
+ *                 @OA\Property(property="locality_type_code", type="string", example="LOC123"),
+ *                 @OA\Property(property="active", type="boolean", example=true),
+ *                 @OA\Property(property="created_at", type="string", format="date-time", example="2023-01-01T00:00:00Z"),
+ *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2023-01-01T00:00:00Z")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(response=401, description="Неавторизованный запрос")
+ * )
  * @OA\Post(
  *     path="/api/v1/departments",
  *     summary="Создание отдела",
