@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
- *     path="/api/v1/news_uzs",
+ *     path="/api/v1/news-uz",
  *     summary="Получение списка всех новостей на узбекском",
  *     tags={"Новости"},
  *     security={{"bearerAuth": {}}},
@@ -32,12 +31,12 @@ use Illuminate\Http\Request;
  *     @OA\Response(response=401, description="Неавторизованный запрос")
  * )
  * @OA\Post(
- *     path="/api/v1/news_uzs",
+ *     path="/api/v1/news-uz",
  *     summary="Создание новости на узбекском",
  *     tags={"Новости"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания новости",
  *         @OA\JsonContent(
  *             required={"title", "slug", "content", "likes", "file_id", "user_id"},
@@ -56,35 +55,91 @@ use Illuminate\Http\Request;
  *     @OA\Response(response=422, description="Некорректные данные"),
  * )
  * @OA\Get(
- *     path="/api/v1/news_uzs/{id}",
+ *     path="/api/v1/news-uz/{id}",
  *     summary="Получение новости на узбекском",
  *     tags={"Новости"},
  *     security={{"bearerAuth": {}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID новости",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="title",
+ *      in="query",
+ *      required=false,
+ *      description="Заголовок",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="slug",
+ *      in="query",
+ *      required=false,
+ *      description="Уникальный slug в таблице news_uzs",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="content",
+ *      in="query",
+ *      required=false,
+ *      description="Содержимое",
+ *      @OA\Schema(type="string")
+ *  ),
+ *  @OA\Parameter(
+ *      name="likes",
+ *      in="query",
+ *      required=false,
+ *      description="Количество лайков, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="file_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID файла, должен существовать в таблице files",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="user_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID пользователя, должен существовать в таблице users",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="views",
+ *      in="query",
+ *      required=false,
+ *      description="Количество просмотров, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="published",
+ *      in="query",
+ *      required=false,
+ *      description="Статус публикации",
+ *      @OA\Schema(type="boolean")
+ *  ),
  *     @OA\Response(response=200, description="Новость найдена"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Новость не найдена"),
  * )
  * @OA\Put(
- *     path="/api/v1/news_uzs/{id}",
+ *     path="/api/v1/news-uz/{id}",
  *     summary="Обновление новости на узбекском",
  *     tags={"Новости"},
  *     security={{"bearerAuth": {}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID новости",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления новости",
  *         @OA\JsonContent(
  *             required={"title", "slug", "content", "likes", "file_id", "user_id"},
@@ -104,14 +159,14 @@ use Illuminate\Http\Request;
  *      @OA\Response(response=422, description="Некорректные данные"),
  *  )
  * @OA\Delete(
- *      path="/api/v1/news_uzs/{id}",
+ *      path="/api/v1/news-uz/{id}",
  *      summary="Удаление новости на узбекском",
  *      tags={"Новости"},
  *      security={{"bearerAuth": {}}},
  *      @OA\Parameter(
  *          name="id",
  *          in="path",
- *          required=true,
+ *          required=false,
  *          description="ID новости",
  *          @OA\Schema(type="integer")
  *      ),

@@ -2,101 +2,120 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
+
 /**
  * @OA\Post(
  *      path="/api/v1/register",
- *      summary="Ro'yhatdan o'tish",
- *      tags={"Avtorizatsiya"},
- *
- * @OA\RequestBody(
- *      request="RegistrationRequestBody",
- *      required=true,
- *      description="Ro'yhatdan o'tish so'rovi",
- *      @OA\JsonContent(
- *          type="object",
- *          @OA\Property(
- *              property="name",
- *              type="string",
- *              description="FIO",
- *              example="John Doe"
- *          ),
- *          @OA\Property(
- *              property="email",
- *              type="string",
- *              format="email",
- *              description="Foydalanuvchi Emaili",
- *              example="john@example.com"
- *          ),
- *          @OA\Property(
- *              property="password",
- *              type="string",
- *              description="Foydalanuvchi paroli",
- *              example="secret"
+ *      summary="Регистрация",
+ *      tags={"Авторизация"},
+ *      @OA\RequestBody(
+ *          request="RegistrationRequestBody",
+ *          required=true,
+ *          description="Запрос на регистрацию",
+ *          @OA\JsonContent(
+ *              type="object",
+ *              @OA\Property(
+ *                  property="name",
+ *                  type="string",
+ *                  description="ФИО",
+ *                  example="Имя Фамилия"
+ *              ),
+ *              @OA\Property(
+ *                  property="email",
+ *                  type="string",
+ *                  format="email",
+ *                  description="Электронная почта пользователя",
+ *                  example="name@example.com"
+ *              ),
+ *              @OA\Property(
+ *                  property="password",
+ *                  type="string",
+ *                  description="Пароль пользователя",
+ *                  example="секрет"
+ *              ),
  *          ),
  *      ),
- * ),
- *     @OA\Response(
+ *      @OA\Response(
  *          response=201,
- *          description="Foydalanuvchi qo'shildi"
- *     ),
+ *          description="Пользователь добавлен",
+ *          @OA\JsonContent(
+ *              example={
+ *                  "message": "Пользователь успешно зарегистрирован",
+ *                  "user": {
+ *                      "id": 1,
+ *                      "name": "Имя Фамилия",
+ *                      "email": "name@example.com"
+ *                  }
+ *              }
+ *          )
+ *      ),
  * ),
  * @OA\Post(
  *       path="/api/v1/login",
- *       summary="Saytga kirish",
- *       tags={"Avtorizatsiya"},
- *
- *  @OA\RequestBody(
- *       request="LoginRequestBody",
- *       required=true,
- *       description="Kirish so'rovi",
- *       @OA\JsonContent(
- *           type="object",
- *           @OA\Property(
- *               property="email",
- *               type="string",
- *               format="email",
- *               description="Foydalanuvchi Emaili",
- *               example="john@example.com"
- *           ),
- *           @OA\Property(
- *               property="password",
- *               type="string",
- *               description="Foydalanuvchi paroli",
- *               example="secret"
+ *       summary="Вход",
+ *       tags={"Авторизация"},
+ *       @OA\RequestBody(
+ *           request="LoginRequestBody",
+ *           required=true,
+ *           description="Запрос на вход",
+ *           @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *                   property="email",
+ *                   type="string",
+ *                   format="email",
+ *                   description="Электронная почта пользователя",
+ *                   example="name@example.com"
+ *               ),
+ *               @OA\Property(
+ *                   property="password",
+ *                   type="string",
+ *                   description="Пароль пользователя",
+ *                   example="секрет"
+ *               ),
  *           ),
  *       ),
- *  ),
- *      @OA\Response(
+ *       @OA\Response(
  *           response=200,
- *           description="Kirish amalga oshirildi"
- *      ),
- *  ),
+ *           description="Вход выполнен",
+ *           @OA\JsonContent(
+ *               example={
+ *                   "message": "Вход выполнен успешно",
+ *                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *               }
+ *           )
+ *       ),
+ * ),
  * @OA\Get(
  *         path="/api/v1/logout",
- *         summary="Saytdan chiqish",
- *         tags={"Avtorizatsiya"},
+ *         summary="Выход",
+ *         tags={"Авторизация"},
  *         @OA\RequestBody(
- *               request="LogoutRequestBody",
- *               required=true,
- *               description="Chiqish so'rovi",
- *               @OA\JsonContent(
- *                   type="object",
- *               @OA\Property(
- *                   property="token",
- *                   type="string",
- *                   description="Foydalanuvchi tokeni",
- *                   example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5MCwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
- *            ),
- *        ),
- *   ),
- *          @OA\Response(
- *              response=200,
- *              description="Chiqish amalga oshirildi"
- *       ),
- *   ),
-*/
+ *             request="LogoutRequestBody",
+ *             required=true,
+ *             description="Запрос на выход",
+ *             @OA\JsonContent(
+ *                 type="object",
+ *                 @OA\Property(
+ *                     property="token",
+ *                     type="string",
+ *                     description="Токен пользователя",
+ *                     example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 ),
+ *             ),
+ *         ),
+ *         @OA\Response(
+ *             response=200,
+ *             description="Выход выполнен",
+ *             @OA\JsonContent(
+ *                 example={
+ *                     "message": "Выход выполнен успешно"
+ *                 }
+ *             )
+ *         ),
+ *     ),
+ */
 class AuthController extends Controller
 {
     //

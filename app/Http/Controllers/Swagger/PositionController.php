@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -36,7 +35,7 @@ use Illuminate\Http\Request;
  *     tags={"Должности"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания должности",
  *         @OA\JsonContent(
  *             required={"name", "time_id", "department_id", "section_id", "role_id"},
@@ -61,10 +60,59 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID должности",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="name",
+ *      in="query",
+ *      required=false,
+ *      description="Название",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="time_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID времени, должен существовать в таблице times",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="department_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID отдела, должен существовать в таблице departments",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="section_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID секции, должен существовать в таблице sections",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="role_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID роли, должен существовать в таблице roles",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="phone",
+ *      in="query",
+ *      required=false,
+ *      description="Телефон, максимальная длина 20 символов",
+ *      @OA\Schema(type="string", maxLength=20, nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *  ),
  *     @OA\Response(response=200, description="Должность найдена"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Должность не найдена"),
@@ -77,12 +125,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID должности",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления должности",
  *         @OA\JsonContent(
  *             required={"name", "time_id", "department_id", "section_id", "role_id"},
@@ -108,7 +156,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID должности",
  *         @OA\Schema(type="integer")
  *     ),

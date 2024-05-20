@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
+
 /**
  * @OA\Get(
  *     path="/api/v1/permission_roles",
@@ -31,7 +31,7 @@ use Illuminate\Http\Request;
  *      tags={"Разрешения и Роли"},
  *      security={{"bearerAuth": {}}},
  *      @OA\RequestBody(
- *          required=true,
+ *          required=false,
  *          description="Данные для создания связи",
  *          @OA\JsonContent(
  *              required={"role_id", "permission_id"},
@@ -52,10 +52,31 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID связи",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="role_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID роли, должен существовать в таблице roles",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="permission_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID разрешения, должен существовать в таблице permissions",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *  ),
  *     @OA\Response(response=200, description="Связь найдена"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Связь не найдена"),
@@ -68,12 +89,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID связи",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления связи",
  *         @OA\JsonContent(
  *             required={"role_id", "permission_id"},
@@ -95,7 +116,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID связи",
  *         @OA\Schema(type="integer")
  *     ),

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\RequestsControllers;
 
 use App\Http\Requests\StoreRequests\StorePostRequest;
 use App\Http\Requests\UpdateRequests\UpdatePostRequest;

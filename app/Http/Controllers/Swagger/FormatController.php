@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -30,7 +29,7 @@ use Illuminate\Http\Request;
  *     tags={"Форматы"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания формата",
  *         @OA\JsonContent(
  *             required={"name"},
@@ -49,10 +48,17 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID формата",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="name",
+ *      in="query",
+ *      required=false,
+ *      description="Название",
+ *      @OA\Schema(type="string", maxLength=255)
+ *      ),
  *     @OA\Response(response=200, description="Формат найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Формат не найден"),
@@ -65,12 +71,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID формата",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления формата",
  *         @OA\JsonContent(
  *             required={"name"},
@@ -90,7 +96,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID формата",
  *         @OA\Schema(type="integer")
  *     ),

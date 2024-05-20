@@ -1,26 +1,26 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\FormatController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\LogController;
-use App\Http\Controllers\NewsEnController;
-use App\Http\Controllers\NewsRuController;
-use App\Http\Controllers\NewsUzController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\PermissionRoleController;
-use App\Http\Controllers\PersonController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\TimeController;
-use App\Http\Controllers\TypeController;
-use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\RequestsControllers\AuthController;
+use App\Http\Controllers\RequestsControllers\CategoryController;
+use App\Http\Controllers\RequestsControllers\DepartmentController;
+use App\Http\Controllers\RequestsControllers\FileController;
+use App\Http\Controllers\RequestsControllers\FormatController;
+use App\Http\Controllers\RequestsControllers\LanguageController;
+use App\Http\Controllers\RequestsControllers\LogController;
+use App\Http\Controllers\RequestsControllers\NewsEnController;
+use App\Http\Controllers\RequestsControllers\NewsRuController;
+use App\Http\Controllers\RequestsControllers\NewsUzController;
+use App\Http\Controllers\RequestsControllers\PageController;
+use App\Http\Controllers\RequestsControllers\PermissionController;
+use App\Http\Controllers\RequestsControllers\PermissionRoleController;
+use App\Http\Controllers\RequestsControllers\PersonController;
+use App\Http\Controllers\RequestsControllers\PositionController;
+use App\Http\Controllers\RequestsControllers\PostController;
+use App\Http\Controllers\RequestsControllers\RoleController;
+use App\Http\Controllers\RequestsControllers\SectionController;
+use App\Http\Controllers\RequestsControllers\TimeController;
+use App\Http\Controllers\RequestsControllers\TypeController;
+use App\Http\Controllers\RequestsControllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,5 +57,5 @@ Route::prefix('v1')->middleware(['auth:sanctum','throttle:api'])->group(function
     Route::apiResource('types', TypeController::class);
     Route::apiResource('visitors', VisitorController::class);
 
-    Route::get('logout', [AuthController::class,'logout']);
+    Route::get('logout', [AuthController::class,'logout'])->name('logout');
 });

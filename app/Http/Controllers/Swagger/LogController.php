@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -69,6 +68,69 @@ use Illuminate\Http\Request;
  *         description="ID лога",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="title",
+ *      in="query",
+ *      required=true,
+ *      description="Заголовок",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="from",
+ *      in="query",
+ *      required=true,
+ *      description="Откуда",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="to",
+ *      in="query",
+ *      required=true,
+ *      description="Куда",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="year",
+ *      in="query",
+ *      required=true,
+ *      description="Год",
+ *      @OA\Schema(type="integer")
+ *  ),
+ *  @OA\Parameter(
+ *      name="month",
+ *      in="query",
+ *      required=true,
+ *      description="Месяц",
+ *      @OA\Schema(type="integer")
+ *  ),
+ *  @OA\Parameter(
+ *      name="day",
+ *      in="query",
+ *      required=true,
+ *      description="День",
+ *      @OA\Schema(type="integer")
+ *  ),
+ *  @OA\Parameter(
+ *      name="user_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID пользователя, должен существовать в таблице users",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="url",
+ *      in="query",
+ *      required=true,
+ *      description="URL",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="ip_address",
+ *      in="query",
+ *      required=false,
+ *      description="IP-адрес",
+ *      @OA\Schema(type="string", format="ip", nullable=true)
+ *  ),
  *     @OA\Response(response=200, description="Лог найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Лог не найден"),

@@ -23,14 +23,16 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'hemis_id' => 'required|integer|unique:departments',
+            'name' => 'required|string',
+            'code' => 'required|string|max:10|unique:departments',
             'info' => 'nullable|string',
-            'phone' => 'required|string|max:20',
-            'code' => 'required|string|size:10|unique:departments',
-            'structure_type_name' => 'nullable|string|max:255',
-            'structure_type_code' => 'nullable|string|max:255',
-            'locality_type_name' => 'nullable|string|max:255',
-            'locality_type_code' => 'nullable|string|max:255',
+            'phone' => 'nullable|string',
+            'structure_type_name' => 'nullable|string|unique:departments',
+            'structure_type_code' => 'nullable|string|unique:departments',
+            'locality_type_name' => 'nullable|string|unique:departments',
+            'locality_type_code' => 'nullable|string|unique:departments',
+            'parent_id' => 'nullable|exists:departments,hemis_id',
             'active' => 'boolean',
         ];
     }

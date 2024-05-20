@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
+
 /**
  * @OA\Get(
  *      path="/api/v1/types",
@@ -32,7 +32,7 @@ use Illuminate\Http\Request;
  *     tags={"Типы"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания типа",
  *         @OA\JsonContent(
  *             required={"name"},
@@ -53,10 +53,31 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID типа",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="name",
+ *      in="query",
+ *      required=false,
+ *      description="Название",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="department_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID отдела, должен существовать в таблице departments",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="section_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID секции, должен существовать в таблице sections",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
  *     @OA\Response(response=200, description="Тип найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Тип не найден"),
@@ -69,12 +90,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID типа",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления типа",
  *         @OA\JsonContent(
  *             required={"name"},
@@ -97,7 +118,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID типа",
  *         @OA\Schema(type="integer")
  *     ),

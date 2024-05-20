@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -32,7 +31,7 @@ use Illuminate\Http\Request;
  *     tags={"Разделы"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания раздела",
  *         @OA\JsonContent(
  *             required={"name", "department_id"},
@@ -53,10 +52,31 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID раздела",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="name",
+ *      in="query",
+ *      required=false,
+ *      description="Название",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="department_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID отдела, должен существовать в таблице departments",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *  ),
  *     @OA\Response(response=200, description="Раздел найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Раздел не найден"),
@@ -69,12 +89,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID раздела",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления раздела",
  *         @OA\JsonContent(
  *             required={"name", "department_id"},
@@ -96,7 +116,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID раздела",
  *         @OA\Schema(type="integer")
  *     ),

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HemisController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
@@ -50,3 +51,6 @@ Route::get('/controllers', function () {
     // Возвращаем список имен контроллеров
     return $controllers;
 });
+
+
+Route::get('hemis', [HemisController::class, 'store'])->name('hemis');

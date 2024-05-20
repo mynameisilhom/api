@@ -1,44 +1,50 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "AndMI API/Open API System",
-        "description": "Andijon Mashinasozlik Instituti Ochiq API tizimi",
+        "title": "AndMI API/Open API Specification",
+        "description": "Открытая API спецификация Андижанского Машиностроительного Института",
         "contact": {
             "email": "andmiatmdev@gmail.com"
         },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Основной сервер API"
+        }
+    ],
     "paths": {
         "/api/v1/documentation": {},
         "/api/v1/register": {
             "post": {
                 "tags": [
-                    "Avtorizatsiya"
+                    "Авторизация"
                 ],
-                "summary": "Ro'yhatdan o'tish",
+                "summary": "Регистрация",
                 "operationId": "26ac06b496123d055b26a788165924bb",
                 "requestBody": {
-                    "description": "Ro'yhatdan o'tish so'rovi",
+                    "description": "Запрос на регистрацию",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "FIO",
+                                        "description": "ФИО",
                                         "type": "string",
-                                        "example": "John Doe"
+                                        "example": "Имя Фамилия"
                                     },
                                     "email": {
-                                        "description": "Foydalanuvchi Emaili",
+                                        "description": "Электронная почта пользователя",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "john@example.com"
+                                        "example": "name@example.com"
                                     },
                                     "password": {
-                                        "description": "Foydalanuvchi paroli",
+                                        "description": "Пароль пользователя",
                                         "type": "string",
-                                        "example": "secret"
+                                        "example": "секрет"
                                     }
                                 },
                                 "type": "object"
@@ -48,7 +54,20 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Foydalanuvchi qo'shildi"
+                        "description": "Пользователь добавлен",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Пользователь успешно зарегистрирован",
+                                    "user": {
+                                        "id": 1,
+                                        "name": "Имя Фамилия",
+                                        "email": "name@example.com"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -56,27 +75,27 @@
         "/api/v1/login": {
             "post": {
                 "tags": [
-                    "Avtorizatsiya"
+                    "Авторизация"
                 ],
-                "summary": "Saytga kirish",
+                "summary": "Вход",
                 "operationId": "3e5fe318fe58355689b1608ed9f5430b",
                 "requestBody": {
-                    "description": "Kirish so'rovi",
+                    "description": "Запрос на вход",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
                                     "email": {
-                                        "description": "Foydalanuvchi Emaili",
+                                        "description": "Электронная почта пользователя",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "john@example.com"
+                                        "example": "name@example.com"
                                     },
                                     "password": {
-                                        "description": "Foydalanuvchi paroli",
+                                        "description": "Пароль пользователя",
                                         "type": "string",
-                                        "example": "secret"
+                                        "example": "секрет"
                                     }
                                 },
                                 "type": "object"
@@ -86,7 +105,16 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Kirish amalga oshirildi"
+                        "description": "Вход выполнен",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Вход выполнен успешно",
+                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -94,21 +122,21 @@
         "/api/v1/logout": {
             "get": {
                 "tags": [
-                    "Avtorizatsiya"
+                    "Авторизация"
                 ],
-                "summary": "Saytdan chiqish",
+                "summary": "Выход",
                 "operationId": "13b9babde691ed66139e55f82d56898b",
                 "requestBody": {
-                    "description": "Chiqish so'rovi",
+                    "description": "Запрос на выход",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
                                     "token": {
-                                        "description": "Foydalanuvchi tokeni",
+                                        "description": "Токен пользователя",
                                         "type": "string",
-                                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5MCwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                                     }
                                 },
                                 "type": "object"
@@ -118,7 +146,15 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Chiqish amalga oshirildi"
+                        "description": "Выход выполнен",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Выход выполнен успешно"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -145,7 +181,7 @@
                                             },
                                             "name": {
                                                 "type": "string",
-                                                "example": "Отдел продаж"
+                                                "example": "Отдел маркетинга"
                                             },
                                             "info": {
                                                 "type": "string",
@@ -170,7 +206,7 @@
                                             },
                                             "locality_type_name": {
                                                 "type": "string",
-                                                "example": "Название типа местности"
+                                                "example": "Название типа локализации"
                                             },
                                             "locality_type_code": {
                                                 "type": "string",
@@ -215,7 +251,7 @@
                 "operationId": "99622c950f75185c4ae74f532ce142b6",
                 "requestBody": {
                     "description": "Данные для создания отдела",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -227,7 +263,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "Отдел продаж"
+                                        "example": "Отдел маркетинга"
                                     },
                                     "info": {
                                         "type": "string",
@@ -252,7 +288,7 @@
                                     },
                                     "locality_type_name": {
                                         "type": "string",
-                                        "example": "Название типа местности"
+                                        "example": "Название типа локализации"
                                     },
                                     "locality_type_code": {
                                         "type": "string",
@@ -270,7 +306,29 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Отдел успешно создан"
+                        "description": "Отдел успешно создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Отдел успешно создан",
+                                    "department": {
+                                        "id": 1,
+                                        "name": "Отдел маркетинга",
+                                        "info": "Информация об отделе",
+                                        "phone": "123456789",
+                                        "code": "DEPT1234",
+                                        "structure_type_name": "Название типа структуры",
+                                        "structure_type_code": "STRUCT123",
+                                        "locality_type_name": "Название типа локализации",
+                                        "locality_type_code": "LOC123",
+                                        "active": true,
+                                        "created_at": "2023-01-01T00:00:00Z",
+                                        "updated_at": "2023-01-01T00:00:00Z"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Неавторизованный запрос"
@@ -298,15 +356,125 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID отдела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название отдела",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "info",
+                        "in": "query",
+                        "description": "Информация об отделе",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Телефон отдела",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 20
+                        }
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Код отдела",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 10
+                        }
+                    },
+                    {
+                        "name": "structure_type_name",
+                        "in": "query",
+                        "description": "Название типа структуры",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "structure_type_code",
+                        "in": "query",
+                        "description": "Код типа структуры",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "locality_type_name",
+                        "in": "query",
+                        "description": "Название типа локализации",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "locality_type_code",
+                        "in": "query",
+                        "description": "Код типа локализации",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность отдела",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Отдел найден"
+                        "description": "Отдел найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "id": 1,
+                                    "name": "Отдел маркетинга",
+                                    "info": "Информация об отделе",
+                                    "phone": "123456789",
+                                    "code": "DEPT1234",
+                                    "structure_type_name": "Название типа структуры",
+                                    "structure_type_code": "STRUCT123",
+                                    "locality_type_name": "Название типа локализации",
+                                    "locality_type_code": "LOC123",
+                                    "active": true
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Неавторизованный запрос"
@@ -332,7 +500,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID отдела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -340,7 +508,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления отдела",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -352,7 +520,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "Отдел продаж"
+                                        "example": "Отдел маркетинга"
                                     },
                                     "info": {
                                         "type": "string",
@@ -377,7 +545,7 @@
                                     },
                                     "locality_type_name": {
                                         "type": "string",
-                                        "example": "Название типа местности"
+                                        "example": "Название типа локализации"
                                     },
                                     "locality_type_code": {
                                         "type": "string",
@@ -424,7 +592,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID отдела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -547,7 +715,7 @@
                 "operationId": "7228cc192e1dab9ab20ec46a83dffd5e",
                 "requestBody": {
                     "description": "Данные для создания файла",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -640,9 +808,115 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID файла",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Название файла",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Уникальный slug в таблице files",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "author_id",
+                        "in": "query",
+                        "description": "ID автора, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "types_id",
+                        "in": "query",
+                        "description": "ID типа, должен существовать в таблице types",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "format_id",
+                        "in": "query",
+                        "description": "ID формата, должен существовать в таблице formats",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "group_of",
+                        "in": "query",
+                        "description": "ID группы",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "part_of",
+                        "in": "query",
+                        "description": "ID части",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "used_times",
+                        "in": "query",
+                        "description": "Количество использований, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "zip",
+                        "in": "query",
+                        "description": "Имя файла",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность файла",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -674,7 +948,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID файла",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -682,7 +956,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления файла",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -776,7 +1050,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID файла",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -859,7 +1133,7 @@
                 "operationId": "de9f4bbb096c06fb82231b164bec0955",
                 "requestBody": {
                     "description": "Данные для создания формата",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -907,9 +1181,19 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID формата",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
                         }
                     }
                 ],
@@ -941,7 +1225,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID формата",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -949,7 +1233,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления формата",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -998,7 +1282,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID формата",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -1236,6 +1520,25 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Язык",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -1438,6 +1741,94 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Откуда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "Куда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Год",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "description": "Месяц",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "description": "День",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "URL",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "ip_address",
+                        "in": "query",
+                        "description": "IP-адрес",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "ip",
+                            "nullable": true
+                        }
                     }
                 ],
                 "responses": {
@@ -1588,13 +1979,13 @@
                 ]
             }
         },
-        "/api/v1/news_ens": {
+        "/api/v1/news-en": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение списка всех новостей на английском",
-                "operationId": "4619051ae6752161cc1f321425192177",
+                "operationId": "326d7bae504fba927ff840773971fe7a",
                 "responses": {
                     "200": {
                         "description": "Список новостей",
@@ -1672,10 +2063,10 @@
                     "Новости"
                 ],
                 "summary": "Создание новости на английском",
-                "operationId": "0f83ba5b2e434daaf2d5efe0a19f9e30",
+                "operationId": "f8dc51653c5aae248631ba9f5ac84cbc",
                 "requestBody": {
                     "description": "Данные для создания новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -1744,21 +2135,99 @@
                 ]
             }
         },
-        "/api/v1/news_ens/{id}": {
+        "/api/v1/news-en/{id}": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение новости на английском",
-                "operationId": "f9726dbad2dba8cbf3241f50b61d958f",
+                "operationId": "1da3291e7d017e79fcc714855b948552",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Уникальный slug в таблице news_ens",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Содержимое",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "likes",
+                        "in": "query",
+                        "description": "Количество лайков, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "file_id",
+                        "in": "query",
+                        "description": "ID файла, должен существовать в таблице files",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "views",
+                        "in": "query",
+                        "description": "Количество просмотров, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "published",
+                        "in": "query",
+                        "description": "Статус публикации",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -1784,13 +2253,13 @@
                     "Новости"
                 ],
                 "summary": "Обновление новости на английском",
-                "operationId": "216606304060c6bab90245ffc3108352",
+                "operationId": "5a163a8387055a31603af59339d34520",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -1798,7 +2267,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -1874,13 +2343,13 @@
                     "Новости"
                 ],
                 "summary": "Удаление новости на английском",
-                "operationId": "c13e675044989eb72d9b76aed1dd8ee0",
+                "operationId": "fa5236f6083403f6c002185910fbc758",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -1904,13 +2373,13 @@
                 ]
             }
         },
-        "/api/v1/news_rus": {
+        "/api/v1/news-ru": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение списка всех новостей на русском",
-                "operationId": "133510652b8efd50e56237c75d3dd761",
+                "operationId": "31acea6210eb0d3747e2e7f558f5d148",
                 "responses": {
                     "200": {
                         "description": "Список новостей",
@@ -1988,10 +2457,10 @@
                     "Новости"
                 ],
                 "summary": "Создание новости на русском",
-                "operationId": "30c81b643d3e9428bc286b9b72b38866",
+                "operationId": "588a6d7a09dddea08e9036967f8247d5",
                 "requestBody": {
                     "description": "Данные для создания новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2060,21 +2529,99 @@
                 ]
             }
         },
-        "/api/v1/news_rus/{id}": {
+        "/api/v1/news-ru/{id}": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение новости на русском",
-                "operationId": "5b67cebc59fb0e8b1982ee0c664c5407",
+                "operationId": "bd5aebe92bec383ae03ce37c29181ff3",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Уникальный slug в таблице news_rus",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Содержимое",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "likes",
+                        "in": "query",
+                        "description": "Количество лайков, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "file_id",
+                        "in": "query",
+                        "description": "ID файла, должен существовать в таблице files",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "views",
+                        "in": "query",
+                        "description": "Количество просмотров, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "published",
+                        "in": "query",
+                        "description": "Статус публикации",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -2100,13 +2647,13 @@
                     "Новости"
                 ],
                 "summary": "Обновление новости на русском",
-                "operationId": "d974f130a1e65e1aa2cee72f00e7f1f4",
+                "operationId": "8f8773b984d1bced2cb889f51dc59e0f",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2114,7 +2661,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2190,13 +2737,13 @@
                     "Новости"
                 ],
                 "summary": "Удаление новости на русском",
-                "operationId": "dddd12825b07f8f9a45be3313b8391dc",
+                "operationId": "45e7a9d310f17906447df742b7f7bd25",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2220,13 +2767,13 @@
                 ]
             }
         },
-        "/api/v1/news_uzs": {
+        "/api/v1/news-uz": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение списка всех новостей на узбекском",
-                "operationId": "cde77abe444adc99df1df6e03080e05b",
+                "operationId": "64c318ef8ec5623d4d90618c974ac6c8",
                 "responses": {
                     "200": {
                         "description": "Список новостей",
@@ -2304,10 +2851,10 @@
                     "Новости"
                 ],
                 "summary": "Создание новости на узбекском",
-                "operationId": "ac52472bf7586e29f2f8dc0a6429b57a",
+                "operationId": "3ef96bda7f3d46590b6f31f06ccfc0a3",
                 "requestBody": {
                     "description": "Данные для создания новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2376,21 +2923,99 @@
                 ]
             }
         },
-        "/api/v1/news_uzs/{id}": {
+        "/api/v1/news-uz/{id}": {
             "get": {
                 "tags": [
                     "Новости"
                 ],
                 "summary": "Получение новости на узбекском",
-                "operationId": "f29b96dccde2249f1fea263d8fffd26a",
+                "operationId": "ae6bc676d6ef7ab5cdd86f583861c3a5",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Уникальный slug в таблице news_uzs",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Содержимое",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "likes",
+                        "in": "query",
+                        "description": "Количество лайков, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "file_id",
+                        "in": "query",
+                        "description": "ID файла, должен существовать в таблице files",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "views",
+                        "in": "query",
+                        "description": "Количество просмотров, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "published",
+                        "in": "query",
+                        "description": "Статус публикации",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -2416,13 +3041,13 @@
                     "Новости"
                 ],
                 "summary": "Обновление новости на узбекском",
-                "operationId": "4df8888dc03605ad9eee308e7d89886e",
+                "operationId": "4594669f2ebfef97dac00468db6890f0",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2430,7 +3055,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления новости",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2506,13 +3131,13 @@
                     "Новости"
                 ],
                 "summary": "Удаление новости на узбекском",
-                "operationId": "d6a4207047f7884b6f44487233737092",
+                "operationId": "445348dc3b6f75039638485da0244388",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID новости",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2607,7 +3232,7 @@
                 "operationId": "9420746e76f9f6fbc07d85142e7cc8f5",
                 "requestBody": {
                     "description": "Данные для создания страницы",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2669,9 +3294,51 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID страницы",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "route",
+                        "in": "query",
+                        "description": "Маршрут",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Тип",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -2703,7 +3370,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID страницы",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2711,7 +3378,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления страницы",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2774,7 +3441,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID страницы",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2861,7 +3528,7 @@
                 "operationId": "c5599956941f97cd86b9776296f1aa06",
                 "requestBody": {
                     "description": "Данные для создания разрешения",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -2913,9 +3580,28 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID разрешения",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -2947,7 +3633,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID разрешения",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -2955,7 +3641,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления разрешения",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3008,7 +3694,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID разрешения",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3099,7 +3785,7 @@
                 "operationId": "9d340e7bfce2680848453508d196f5a2",
                 "requestBody": {
                     "description": "Данные для создания связи",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3156,9 +3842,38 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID связи",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "ID роли, должен существовать в таблице roles",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "permission_id",
+                        "in": "query",
+                        "description": "ID разрешения, должен существовать в таблице permissions",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -3190,7 +3905,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID связи",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3198,7 +3913,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления связи",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3256,7 +3971,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID связи",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3375,7 +4090,7 @@
                 "operationId": "133c1e68c68efac0fca5fa9254aebfec",
                 "requestBody": {
                     "description": "Данные для создания записи о человеке",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3463,9 +4178,111 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о человеке",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "ID пользователя, должен существовать в таблице users",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "department_id",
+                        "in": "query",
+                        "description": "ID отдела, должен существовать в таблице departments",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "section_id",
+                        "in": "query",
+                        "description": "ID секции, должен существовать в таблице sections",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "position_id",
+                        "in": "query",
+                        "description": "ID позиции, должен существовать в таблице positions",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "ID роли, должен существовать в таблице roles",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "avatar",
+                        "in": "query",
+                        "description": "Аватар",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Телефон, максимальная длина 20 символов",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 20,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "passport_number",
+                        "in": "query",
+                        "description": "Уникальный номер паспорта в таблице people",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "passport_pin",
+                        "in": "query",
+                        "description": "Уникальный PIN паспорта в таблице people",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -3497,7 +4314,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о человеке",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3505,7 +4322,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления записи о человеке",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3594,7 +4411,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о человеке",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3701,7 +4518,7 @@
                 "operationId": "1acf1be76d4fb743ad17fd1d8c1a27e4",
                 "requestBody": {
                     "description": "Данные для создания должности",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3777,9 +4594,79 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID должности",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "time_id",
+                        "in": "query",
+                        "description": "ID времени, должен существовать в таблице times",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "department_id",
+                        "in": "query",
+                        "description": "ID отдела, должен существовать в таблице departments",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "section_id",
+                        "in": "query",
+                        "description": "ID секции, должен существовать в таблице sections",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "ID роли, должен существовать в таблице roles",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Телефон, максимальная длина 20 символов",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 20,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -3811,7 +4698,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID должности",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3819,7 +4706,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления должности",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3896,7 +4783,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID должности",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -3983,7 +4870,7 @@
                 "operationId": "0637485e501aa725783476e0153f48b8",
                 "requestBody": {
                     "description": "Данные для создания роли",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4035,9 +4922,28 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID роли",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -4069,7 +4975,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID роли",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4077,7 +4983,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления роли",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4130,7 +5036,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID роли",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4221,7 +5127,7 @@
                 "operationId": "64c39cfc8e96fcee480a8ee38767b314",
                 "requestBody": {
                     "description": "Данные для создания раздела",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4278,9 +5184,38 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID раздела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "department_id",
+                        "in": "query",
+                        "description": "ID отдела, должен существовать в таблице departments",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -4312,7 +5247,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID раздела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4320,7 +5255,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления раздела",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4378,7 +5313,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID раздела",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4503,7 +5438,7 @@
                 "operationId": "d181bc607c0e5e26ffd2940a9b0beda6",
                 "requestBody": {
                     "description": "Данные для создания временного интервала",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4602,9 +5537,113 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID временного интервала",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Заголовок",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Время начала в формате ЧЧ:ММ",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "time",
+                            "example": "08:00"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "Время окончания в формате ЧЧ:ММ, должно быть после времени начала",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "time",
+                            "example": "17:00"
+                        }
+                    },
+                    {
+                        "name": "monday",
+                        "in": "query",
+                        "description": "Понедельник",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "tuesday",
+                        "in": "query",
+                        "description": "Вторник",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "wednesday",
+                        "in": "query",
+                        "description": "Среда",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "thursday",
+                        "in": "query",
+                        "description": "Четверг",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "friday",
+                        "in": "query",
+                        "description": "Пятница",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "saturday",
+                        "in": "query",
+                        "description": "Суббота",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "sunday",
+                        "in": "query",
+                        "description": "Воскресенье",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "Активность",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -4636,7 +5675,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID временного интервала",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4644,7 +5683,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления временного интервала",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4744,7 +5783,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID временного интервала",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4839,7 +5878,7 @@
                 "operationId": "b859d41f7ce1d7ea8b8eff01430898ae",
                 "requestBody": {
                     "description": "Данные для создания типа",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4895,9 +5934,39 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID типа",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Название",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    {
+                        "name": "department_id",
+                        "in": "query",
+                        "description": "ID отдела, должен существовать в таблице departments",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "section_id",
+                        "in": "query",
+                        "description": "ID секции, должен существовать в таблице sections",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
                         }
                     }
                 ],
@@ -4929,7 +5998,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID типа",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -4937,7 +6006,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления типа",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -4998,7 +6067,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID типа",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -5117,7 +6186,7 @@
                 "operationId": "eaa409ee095c083c0c097c7e49bff334",
                 "requestBody": {
                     "description": "Данные для создания записи о посетителе",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -5210,9 +6279,109 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о посетителе",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "site",
+                        "in": "query",
+                        "description": "Счетчик для сайта, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "uz",
+                        "in": "query",
+                        "description": "Счетчик для узбекского языка, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "ru",
+                        "in": "query",
+                        "description": "Счетчик для русского языка, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "en",
+                        "in": "query",
+                        "description": "Счетчик для английского языка, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "auto",
+                        "in": "query",
+                        "description": "Счетчик для автомобильной тематики, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "machine",
+                        "in": "query",
+                        "description": "Счетчик для машиностроения, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "electrics",
+                        "in": "query",
+                        "description": "Счетчик для электротехники, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "logistics",
+                        "in": "query",
+                        "description": "Счетчик для логистики, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "intellectual",
+                        "in": "query",
+                        "description": "Счетчик для интеллектуальной тематики, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "economics",
+                        "in": "query",
+                        "description": "Счетчик для экономики, минимум 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0
                         }
                     }
                 ],
@@ -5244,7 +6413,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о посетителе",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -5252,7 +6421,7 @@
                 ],
                 "requestBody": {
                     "description": "Данные для обновления записи о посетителе",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -5350,7 +6519,7 @@
                         "name": "id",
                         "in": "path",
                         "description": "ID записи о посетителе",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         }
@@ -5379,7 +6548,7 @@
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
-                "description": "Bearer token orqali autentifikatsiyadan o'tish",
+                "description": "Авторизация с использованием Bearer токена",
                 "name": "Authorization",
                 "in": "header",
                 "bearerFormat": "JWT",

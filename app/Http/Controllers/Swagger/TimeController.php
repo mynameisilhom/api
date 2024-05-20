@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -40,7 +39,7 @@ use Illuminate\Http\Request;
  *     tags={"Временные интервалы"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания временного интервала",
  *         @OA\JsonContent(
  *             required={"title", "start", "end", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
@@ -69,10 +68,87 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID временного интервала",
  *         @OA\Schema(type="integer")
- *     ),
+ *     ), @OA\Parameter(
+ *      name="title",
+ *      in="query",
+ *      required=false,
+ *      description="Заголовок",
+ *      @OA\Schema(type="string", maxLength=255)
+ *  ),
+ *  @OA\Parameter(
+ *      name="start",
+ *      in="query",
+ *      required=false,
+ *      description="Время начала в формате ЧЧ:ММ",
+ *      @OA\Schema(type="string", format="time", example="08:00")
+ *  ),
+ *  @OA\Parameter(
+ *      name="end",
+ *      in="query",
+ *      required=false,
+ *      description="Время окончания в формате ЧЧ:ММ, должно быть после времени начала",
+ *      @OA\Schema(type="string", format="time", example="17:00")
+ *  ),
+ *  @OA\Parameter(
+ *      name="monday",
+ *      in="query",
+ *      required=false,
+ *      description="Понедельник",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="tuesday",
+ *      in="query",
+ *      required=false,
+ *      description="Вторник",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="wednesday",
+ *      in="query",
+ *      required=false,
+ *      description="Среда",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="thursday",
+ *      in="query",
+ *      required=false,
+ *      description="Четверг",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="friday",
+ *      in="query",
+ *      required=false,
+ *      description="Пятница",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="saturday",
+ *      in="query",
+ *      required=false,
+ *      description="Суббота",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="sunday",
+ *      in="query",
+ *      required=false,
+ *      description="Воскресенье",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *  @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *  ),
+ *
  *     @OA\Response(response=200, description="Временный интервал найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Временный интервал не найден"),
@@ -85,12 +161,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID временного интервала",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления временного интервала",
  *         @OA\JsonContent(
  *             required={"title", "start", "end", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"},
@@ -120,7 +196,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID временного интервала",
  *         @OA\Schema(type="integer")
  *     ),

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
+
 /**
  * @OA\Get(
  *     path="/api/v1/files",
@@ -39,7 +39,7 @@ use Illuminate\Http\Request;
  *     tags={"Файлы"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания файла",
  *         @OA\JsonContent(
  *             required={"title", "slug", "author_id", "user_id", "types_id", "format_id"},
@@ -68,10 +68,87 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID файла",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="title",
+ *      in="query",
+ *      required=false,
+ *      description="Название файла",
+ *      @OA\Schema(type="string", maxLength=255)
+ *      ),
+ *      @OA\Parameter(
+ *      name="slug",
+ *      in="query",
+ *      required=false,
+ *      description="Уникальный slug в таблице files",
+ *      @OA\Schema(type="string", maxLength=255)
+ *      ),
+ *      @OA\Parameter(
+ *      name="author_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID автора, должен существовать в таблице users",
+ *      @OA\Schema(type="integer", nullable=true)
+ *      ),
+ *      @OA\Parameter(
+ *      name="user_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID пользователя, должен существовать в таблице users",
+ *      @OA\Schema(type="integer", nullable=true)
+ *      ),
+ *      @OA\Parameter(
+ *      name="types_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID типа, должен существовать в таблице types",
+ *      @OA\Schema(type="integer", nullable=true)
+ *      ),
+ *      @OA\Parameter(
+ *      name="format_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID формата, должен существовать в таблице formats",
+ *      @OA\Schema(type="integer", nullable=true)
+ *      ),
+ *      @OA\Parameter(
+ *      name="group_of",
+ *      in="query",
+ *      required=false,
+ *      description="ID группы",
+ *      @OA\Schema(type="integer")
+ *      ),
+ *      @OA\Parameter(
+ *      name="part_of",
+ *      in="query",
+ *      required=false,
+ *      description="ID части",
+ *      @OA\Schema(type="integer")
+ *      ),
+ *      @OA\Parameter(
+ *      name="used_times",
+ *      in="query",
+ *      required=false,
+ *      description="Количество использований, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *      ),
+ *      @OA\Parameter(
+ *      name="zip",
+ *      in="query",
+ *      required=false,
+ *      description="Имя файла",
+ *      @OA\Schema(type="string")
+ *      ),
+ *      @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность файла",
+ *      @OA\Schema(type="boolean")
+ *      ),
  *     @OA\Response(response=200, description="Файл найден"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Файл не найден"),
@@ -84,12 +161,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID файла",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления файла",
  *         @OA\JsonContent(
  *             required={"title", "slug", "author_id", "user_id", "types_id", "format_id"},
@@ -119,7 +196,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID файла",
  *         @OA\Schema(type="integer")
  *     ),

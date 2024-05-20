@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -39,7 +38,7 @@ use Illuminate\Http\Request;
  *     tags={"Люди"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания записи о человеке",
  *         @OA\JsonContent(
  *             required={"user_id", "department_id", "section_id", "position_id", "role_id"},
@@ -67,10 +66,80 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о человеке",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="user_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID пользователя, должен существовать в таблице users",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="department_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID отдела, должен существовать в таблице departments",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="section_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID секции, должен существовать в таблице sections",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="position_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID позиции, должен существовать в таблице positions",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="role_id",
+ *      in="query",
+ *      required=false,
+ *      description="ID роли, должен существовать в таблице roles",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="avatar",
+ *      in="query",
+ *      required=false,
+ *      description="Аватар",
+ *      @OA\Schema(type="string", maxLength=255, nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="phone",
+ *      in="query",
+ *      required=false,
+ *      description="Телефон, максимальная длина 20 символов",
+ *      @OA\Schema(type="string", maxLength=20, nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="passport_number",
+ *      in="query",
+ *      required=false,
+ *      description="Уникальный номер паспорта в таблице people",
+ *      @OA\Schema(type="string", maxLength=255, nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="passport_pin",
+ *      in="query",
+ *      required=false,
+ *      description="Уникальный PIN паспорта в таблице people",
+ *      @OA\Schema(type="integer", nullable=true)
+ *  ),
+ *  @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *  ),
  *     @OA\Response(response=200, description="Запись о человеке найдена"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Запись о человеке не найдена"),
@@ -83,12 +152,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о человеке",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления записи о человеке",
  *         @OA\JsonContent(
  *             required={"user_id", "department_id", "section_id", "position_id", "role_id"},
@@ -117,7 +186,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о человеке",
  *         @OA\Schema(type="integer")
  *     ),

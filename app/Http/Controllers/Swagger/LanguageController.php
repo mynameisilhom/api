@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
 
 /**
  * @OA\Get(
@@ -97,6 +96,20 @@ use Illuminate\Http\Request;
  *         description="ID языка",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="language",
+ *      in="query",
+ *      required=true,
+ *      description="Язык",
+ *      @OA\Schema(type="string", maxLength=255)
+ *      ),
+ *      @OA\Parameter(
+ *      name="active",
+ *      in="query",
+ *      required=false,
+ *      description="Активность",
+ *      @OA\Schema(type="boolean")
+ *      ),
  *     @OA\Response(response=204, description="Язык успешно удален"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Язык не найден"),

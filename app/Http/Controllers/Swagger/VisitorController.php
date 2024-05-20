@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Swagger;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RequestsControllers\Controller;
+
 /**
  * @OA\Get(
  *      path="/api/v1/visitors",
@@ -38,7 +38,7 @@ use Illuminate\Http\Request;
  *     tags={"Посетители"},
  *     security={{"bearerAuth": {}}},
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для создания записи о посетителе",
  *         @OA\JsonContent(
  *             required={"site", "uz", "ru", "en", "auto", "machine", "electrics", "logistics", "intellectual", "economics"},
@@ -66,10 +66,80 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о посетителе",
  *         @OA\Schema(type="integer")
  *     ),
+ *      @OA\Parameter(
+ *      name="site",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для сайта, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="uz",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для узбекского языка, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="ru",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для русского языка, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="en",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для английского языка, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="auto",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для автомобильной тематики, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="machine",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для машиностроения, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="electrics",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для электротехники, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="logistics",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для логистики, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="intellectual",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для интеллектуальной тематики, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
+ *  @OA\Parameter(
+ *      name="economics",
+ *      in="query",
+ *      required=false,
+ *      description="Счетчик для экономики, минимум 0",
+ *      @OA\Schema(type="integer", minimum=0)
+ *  ),
  *     @OA\Response(response=200, description="Запись найдена"),
  *     @OA\Response(response=401, description="Неавторизованный запрос"),
  *     @OA\Response(response=404, description="Запись не найдена"),
@@ -82,12 +152,12 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о посетителе",
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\RequestBody(
- *         required=true,
+ *         required=false,
  *         description="Данные для обновления записи о посетителе",
  *         @OA\JsonContent(
  *             required={"site", "uz", "ru", "en", "auto", "machine", "electrics", "logistics", "intellectual", "economics"},
@@ -117,7 +187,7 @@ use Illuminate\Http\Request;
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
- *         required=true,
+ *         required=false,
  *         description="ID записи о посетителе",
  *         @OA\Schema(type="integer")
  *     ),

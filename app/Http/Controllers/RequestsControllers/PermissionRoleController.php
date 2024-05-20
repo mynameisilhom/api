@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\RequestsControllers;
 
 use App\Http\Requests\StoreRequests\StorePermission_RoleRequest;
 use App\Http\Requests\UpdateRequests\UpdatePermission_RoleRequest;

@@ -58,7 +58,6 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('set null');
 
-
             $table->foreignIdFor(Type::class,'types_id')
                 ->nullable()
                 ->constrained('types')
